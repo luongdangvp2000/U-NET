@@ -7,13 +7,13 @@ import torch.optim as optim
 from model import UNET
 from sklearn.model_selection import train_test_split
 
-# from utils import {
-#     load_checkpoint,
-#     save_checkpoint,
-#     get_loaders,
-#     check_accuracy,
-#     save_predictions_as_imgs,
-# }
+from utils import (
+    load_checkpoint,
+    save_checkpoint,
+    get_loaders,
+    check_accuracy,
+    save_predictions_as_imgs,
+)
 
 LEARNING_RATE = 1e-4
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
@@ -26,8 +26,8 @@ PIN_MEMORY = True
 LOAD_MODEL = False
 TRAIN_IMG_DIR = "/content/drive/MyDrive/U-NET/Dataset/train_images"
 TRAIN_MASK_DIR = "/content/drive/MyDrive/U-NET/Dataset/train_masks"
-# VAL_IMG_DIR = "data/val_images/"
-# VAL_MASK_DIR = "data/val_masks/"
+VAL_IMG_DIR = "/content/drive/MyDrive/U-NET/Dataset/val_images"
+VAL_MASK_DIR = "/content/drive/MyDrive/U-NET/Dataset/val_masks"
 
 def train_fn(loader, model, optimizer, loss_fn, scaler):
     loop = tqdm(loader)
@@ -88,8 +88,8 @@ def main():
     train_loader, val_loader = get_loaders(
         TRAIN_IMG_DIR,
         TRAIN_MASK_DIR,
-        # VAL_IMG_DIR,
-        # VAL_MASK_DIR,
+        VAL_IMG_DIR,
+        VAL_MASK_DIR,
         BATCH_SIZE,
         train_transform,
         val_transforms,

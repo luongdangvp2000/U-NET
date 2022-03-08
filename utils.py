@@ -15,11 +15,11 @@ def load_checkpoint(checkpoint, model):
 def get_loaders(
     train_dir,
     train_maskdir,
-    # val_dir,
-    # val_maskdir,
+    val_dir,
+    val_maskdir,
     batch_size,
     train_transform,
-    # val_transform,
+    val_transform,
     num_workers=4,
     pin_memory=True,
 ):
@@ -37,21 +37,21 @@ def get_loaders(
         shuffle=True,
     )
 
-    # val_ds = CarvanaDataset(
-    #     image_dir=val_dir,
-    #     mask_dir=val_maskdir,
-    #     transform=val_transform,
-    # )
+    val_ds = CarvanaDataset(
+        image_dir=val_dir,
+        mask_dir=val_maskdir,
+        transform=val_transform,
+    )
 
-    # val_loader = DataLoader(
-    #     val_ds,
-    #     batch_size=batch_size,
-    #     num_workers=num_workers,
-    #     pin_memory=pin_memory,
-    #     shuffle=False,
-    # )
+    val_loader = DataLoader(
+        val_ds,
+        batch_size=batch_size,
+        num_workers=num_workers,
+        pin_memory=pin_memory,
+        shuffle=False,
+    )
 
-    return train_loader #, val_loader
+    return train_loader, val_loader
 
 def check_accuracy(loader, model, device="cuda"):
     num_correct = 0
