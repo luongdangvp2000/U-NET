@@ -5,6 +5,7 @@ from tqdm import tqdm
 import torch.nn as nn
 import torch.optim as optim
 from model import UNET
+from sklearn.model_selection import train_test_split
 
 # from utils import {
 #     load_checkpoint,
@@ -80,6 +81,9 @@ def main():
     model = UNET(in_channels=3, out_channels=1).to(DEVICE)
     loss_fn = nn.BCEWithLogitsLoss()
     optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE)
+
+
+    
 
     train_loader, val_loader = get_loaders(
         TRAIN_IMG_DIR,
