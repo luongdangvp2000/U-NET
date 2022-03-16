@@ -11,7 +11,7 @@ from utils import (
     load_checkpoint,
     save_checkpoint,
     get_loaders,
-    check_accuracy,
+    check_accuracy_dice_score,
     save_predictions_as_imgs,
 )
 
@@ -101,7 +101,7 @@ def main():
         load_checkpoint(torch.load("my_checkpoint.pth.tar"), model)
 
 
-    check_accuracy(val_loader, model, device=DEVICE)
+    check_accuracy_dice_score(val_loader, model, device=DEVICE)
     scaler = torch.cuda.amp.GradScaler()
 
     for epoch in range(NUM_EPOCHS):
@@ -115,7 +115,7 @@ def main():
         save_checkpoint(checkpoint)
 
         # check accuracy
-        check_accuracy(val_loader, model, device=DEVICE)
+        check_accuracy_dice_score(val_loader, model, device=DEVICE)
 
         # print some examples to a folder
         save_predictions_as_imgs(

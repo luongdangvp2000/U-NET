@@ -53,7 +53,7 @@ def get_loaders(
 
     return train_loader, val_loader
 
-def check_accuracy(loader, model, device="cuda"):
+def check_accuracy_dice_score(loader, model, device="cuda"):
     num_correct = 0
     num_pixels = 0
     dice_score = 0
@@ -76,6 +76,22 @@ def check_accuracy(loader, model, device="cuda"):
     )
     print(f"Dice score: {dice_score/len(loader)}")
     model.train()
+
+# def check_accuracy_iou_score(loader, model, device = "cuda"):
+#     num_correct = 0
+#     num_pixels = 0
+#     iou_score = 0
+#     model.eval()
+
+#     with torch.no_grad():
+#          for x, y in loader:
+#             x = x.to(device)
+#             y = y.to(device).unsqueeze(1)
+#             preds = torch.sigmoid(model(x))
+#             preds = (preds > 0.5).float()
+#             num_correct += (preds == y).sum()
+#             num_pixels += torch.numel(preds)
+#             iou_score += ((preds*y).sum())/
 
 def save_predictions_as_imgs(
     loader, model, folder="saved_images/", device="cuda"
