@@ -12,6 +12,7 @@ from utils import (
     save_checkpoint,
     get_loaders,
     check_accuracy_dice_score,
+    check_accuracy_iou_score,
     save_predictions_as_imgs,
 )
 
@@ -102,7 +103,7 @@ def main():
 
 
     check_accuracy_dice_score(val_loader, model, device=DEVICE)
-     check_accuracy_iou_score(val_loader, model, device=DEVICE)
+    check_accuracy_iou_score(val_loader, model, device=DEVICE)
     scaler = torch.cuda.amp.GradScaler()
 
     for epoch in range(NUM_EPOCHS):
@@ -117,7 +118,7 @@ def main():
 
         # check accuracy
         check_accuracy_dice_score(val_loader, model, device=DEVICE)
-         check_accuracy_iou_score(val_loader, model, device=DEVICE)
+        check_accuracy_iou_score(val_loader, model, device=DEVICE)
         # print some examples to a folder
         save_predictions_as_imgs(
             val_loader, model, folder="saved_images/", device=DEVICE

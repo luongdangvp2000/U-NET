@@ -97,9 +97,7 @@ def check_accuracy_iou_score(loader, model, device = "cuda"):
     )
     print(f"IoU score: {iou_score/len(loader)}")
     model.train() 
-
       
-
 def save_predictions_as_imgs(
     loader, model, folder="saved_images/", device="cuda"
 ):
