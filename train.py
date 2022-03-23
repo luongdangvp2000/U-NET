@@ -16,6 +16,10 @@ from utils import (
     save_predictions_as_imgs,
 )
 
+from visualizer import (
+    matplotlib_imshow,
+)
+
 LEARNING_RATE = 1e-4
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 BATCH_SIZE = 16
@@ -84,8 +88,6 @@ def main():
     optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE)
 
 
-    
-
     train_loader, val_loader = get_loaders(
         TRAIN_IMG_DIR,
         TRAIN_MASK_DIR,
@@ -97,6 +99,14 @@ def main():
         NUM_WORKERS,
         PIN_MEMORY,
     )
+
+    # Extract a batch of 4 images
+    dataiter = iter(training_loader)
+    images, labels = dataiter.next()
+
+    # Create a grid from the images and show them
+    img_grid = torchvision.utils.make_grid(images)
+    matplotlib_imshow(img_grid, one_channel=True)
 
     if LOAD_MODEL:
         load_checkpoint(torch.load("my_checkpoint.pth.tar"), model)
