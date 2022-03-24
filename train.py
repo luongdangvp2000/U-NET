@@ -101,12 +101,12 @@ def main():
     )
 
     # Extract a batch of 4 images
-    dataiter = iter(training_loader)
-    images, labels = dataiter.next()
+    # dataiter = iter(training_loader)
+    # images, labels = dataiter.next()
 
     # Create a grid from the images and show them
-    img_grid = torchvision.utils.make_grid(images)
-    matplotlib_imshow(img_grid, one_channel=True)
+    # img_grid = torchvision.utils.make_grid(images)
+    # matplotlib_imshow(img_grid, one_channel=True)
 
     if LOAD_MODEL:
         load_checkpoint(torch.load("my_checkpoint.pth.tar"), model)
