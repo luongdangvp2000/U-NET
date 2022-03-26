@@ -39,6 +39,8 @@ def matplotlib_imshow(img, one_channel=False):
     else:
         plt.imshow(np.transpose(npimg, (1, 2, 0)))
 
+    plt.show()
+
 def plot_img_and_mask(img, mask):
     classes = mask.shape[0] if len(mask.shape) > 2 else 1
     fig, ax = plt.subplots(1, classes + 1)

@@ -110,7 +110,7 @@ def main():
     )
 
     # Extract a batch of 4 images
-    dataiter = iter(training_loader)
+    dataiter = iter(train_loader)
     images, labels = dataiter.next()
 
     # Create a grid from the images and show them
