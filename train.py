@@ -115,8 +115,9 @@ def main():
 
     # Create a grid from the images and show them
     img_grid = torchvision.utils.make_grid(images)
-    # matplotlib_imshow(img_grid, one_channel=True)
-    writer.add_image('')
+    matplotlib_imshow(img_grid, one_channel=True)
+    writer.add_image('Four images', img_grid)
+    writer.flush()
 
 
     if LOAD_MODEL:
