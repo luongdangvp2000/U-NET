@@ -7,6 +7,11 @@ import torch.optim as optim
 from model import UNET
 from sklearn.model_selection import train_test_split
 
+import torchvision
+import torchvision.transforms as transforms
+
+from torch.utils.tensorboard import SummaryWriter
+
 from utils import (
     load_checkpoint,
     save_checkpoint,
@@ -19,6 +24,10 @@ from utils import (
 from visualizer import (
     matplotlib_imshow,
 )
+
+writer = SummaryWriter('runs/Carvana1')
+
+
 
 LEARNING_RATE = 1e-4
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
@@ -101,12 +110,14 @@ def main():
     )
 
     # Extract a batch of 4 images
-    # dataiter = iter(training_loader)
-    # images, labels = dataiter.next()
+    dataiter = iter(training_loader)
+    images, labels = dataiter.next()
 
     # Create a grid from the images and show them
-    # img_grid = torchvision.utils.make_grid(images)
+    img_grid = torchvision.utils.make_grid(images)
     # matplotlib_imshow(img_grid, one_channel=True)
+    writer.add_image('')
+
 
     if LOAD_MODEL:
         load_checkpoint(torch.load("my_checkpoint.pth.tar"), model)
