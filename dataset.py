@@ -1,14 +1,15 @@
 import os
 from PIL import Image
 from torch.utils.data import Dataset
+from torchvision.datasets import Cityscapes
 import numpy as np
 
 import json
 from collections import namedtuple
 from typing import Any, Callable, Dict, List, Optional, Union, Tuple
 
-from .utils import extract_archive, verify_str_arg, iterable_to_str
-from .vision import VisionDataset
+from torchvison.datasets.utils import extract_archive, verify_str_arg, iterable_to_str
+from torchvision.datasets.vision import VisionDataset
 
 
 
@@ -36,7 +37,7 @@ class CarvanaDataset(Dataset):
 
         return image, mask
 
-class Cityscapes(VisionDataset):
+class CityscapesDataset(Cityscapes):
     """`Cityscapes <http://www.cityscapes-dataset.com/>`_ Dataset.
 
     Args:
@@ -221,9 +222,10 @@ class Cityscapes(VisionDataset):
         target = tuple(targets) if len(targets) > 1 else targets[0]
 
         if self.transforms is not None:
-            image, target = self.transforms(image, target)
-
-        return image, target
+            #image, target = self.transforms(image, target)
+             transformed=transform(image=np.array(image), mask=np.array(target))            
+        return transformed['image'],transformed['mask']
+        #return image, target
 
 
     def __len__(self) -> int:

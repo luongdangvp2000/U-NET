@@ -6,7 +6,7 @@ from torchvision.transforms import ToTensor
 #import cityscapesScripts
 
 from dataset import (
-    Cityscapes,
+    CityscapesDataset,
 )
 
 if __name__ == "__main__":
@@ -14,7 +14,9 @@ if __name__ == "__main__":
         './data/cityscapes', 
         split='train', 
         mode='fine',
-        target_type='semantic'
+        target_type='semantic',
+        transforms= transform
     )
 
-    img, smnt = dataset[0]
+    img, seg = dataset[20]
+    print(img.shape, seg.shape)
