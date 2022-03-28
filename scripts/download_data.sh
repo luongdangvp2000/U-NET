@@ -2,12 +2,12 @@ wget --keep-session-cookies --save-cookies=cookies.txt --post-data 'username=180
 
 wget --load-cookies cookies.txt --content-disposition https://www.cityscapes-dataset.com/file-handling/?packageID=1
 unzip gtFine_trainvaltest.zip
-mv gtFine/* data/masks/
-rm -d gtFine
+mv gtFine data/cityscapes/
+#rm -d gtFine
 rm gtFine_trainvaltest.zip
 
 wget --load-cookies cookies.txt --content-disposition https://www.cityscapes-dataset.com/file-handling/?packageID=3
 unzip leftImg8bit_trainvaltest.zip
-mv leftImg8bit/* data/images/
-rm -d leftImg8bit
+mv leftImg8bit data/cityscapes/
+#rm -d leftImg8bit
 rm leftImg8bit_trainvaltest.zip

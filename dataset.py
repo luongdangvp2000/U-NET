@@ -8,8 +8,8 @@ import json
 from collections import namedtuple
 from typing import Any, Callable, Dict, List, Optional, Union, Tuple
 
-from torchvison.datasets.utils import extract_archive, verify_str_arg, iterable_to_str
-from torchvision.datasets.vision import VisionDataset
+from torchvision.datasets.utils import extract_archive, verify_str_arg, iterable_to_str
+from torchvision.datasets import VisionDataset
 
 
 

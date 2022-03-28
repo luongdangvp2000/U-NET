@@ -10,13 +10,14 @@ from dataset import (
 )
 
 if __name__ == "__main__":
-    dataset = Cityscapes(
+    dataset = CityscapesDataset(
         './data/cityscapes', 
         split='train', 
         mode='fine',
         target_type='semantic',
-        transforms= transform
+        #transforms= transform
     )
 
-    img, seg = dataset[20]
-    print(img.shape, seg.shape)
+    # img, seg = dataset[20]
+    # print(img.shape, seg.shape)
+    
