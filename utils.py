@@ -113,3 +113,11 @@ def save_predictions_as_imgs(
         torchvision.utils.save_image(y.unsqueeze(1), f"{folder}{idx}.png")
 
     model.train()
+
+def encode_segmap(mask):
+    void_classes = [0,12,3,4,5,6,9,10,14,15,16,18,29,30,-1]
+    for _voidc in void_classes:
+        mask[mask == _voidc] = ignore_index
+    for _validc in valid_classes:
+        mask[mask == _validc] = class_map[_validc]
+    return mask

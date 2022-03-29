@@ -42,7 +42,6 @@ if __name__ == "__main__":
         ToTensorV2(),
     ])
 
-
     dataset = MyClass(
         './data/cityscapes', 
         split='val', 
@@ -51,7 +50,7 @@ if __name__ == "__main__":
         transforms= transform
     )
 
-    # print(dataset[0][0].size)
+    #print(dataset[0][0].size)
 
     img, seg = dataset[20]
     print(img.shape, seg.shape)
