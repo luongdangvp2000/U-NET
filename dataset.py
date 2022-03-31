@@ -65,9 +65,9 @@ class CarvanaDataset(Dataset):
 #             transformed=transform(image=np.array(image), mask=np.array(target))            
 #         return transformed['image'],transformed['mask']
 
-class CityscapesDataset(CarvanaDataset):
+class CityscapesDataset(Dataset):
     def __init__(self, image_dir, mask_dir, transform=None):
-        super(CityscapesDataset, self).__init__()
+        #super(CityscapesDataset, self).__init__()
         self.image_dir = image_dir
         self.mask_dir = mask_dir
         self.transform = transform
