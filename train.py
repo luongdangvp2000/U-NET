@@ -38,14 +38,14 @@ DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 BATCH_SIZE = 32
 NUM_EPOCHS = 3
 NUM_WORKERS = 2
-# IMAGE_HEIGHT = 160  # 1280 originally
-# IMAGE_WIDTH = 240  # 1918 originally
-# PIN_MEMORY = True
-# LOAD_MODEL = False
-# TRAIN_IMG_DIR = "/content/drive/MyDrive/U-NET/Dataset/train_images"
-# TRAIN_MASK_DIR = "/content/drive/MyDrive/U-NET/Dataset/train_masks"
-# VAL_IMG_DIR = "/content/drive/MyDrive/U-NET/Dataset/val_images"
-# VAL_MASK_DIR = "/content/drive/MyDrive/U-NET/Dataset/val_masks"
+IMAGE_HEIGHT = 256  # 1280 originally
+IMAGE_WIDTH = 512  # 1918 originally
+PIN_MEMORY = True
+LOAD_MODEL = False
+TRAIN_IMG_DIR = "data/cityscapes/leftImg8bit/train/aachen"
+TRAIN_MASK_DIR = "data/cityscapes/gtFine/train/aachen"
+VAL_IMG_DIR = "data/cityscapes/leftImg8bit/val/lindau"
+VAL_MASK_DIR = "data/cityscapes/gtFine/val/lindau"
 
 
 def train_fn(loader, model, optimizer, loss_fn, scaler):
@@ -73,13 +73,12 @@ def main():
     train_transform = A.Compose(
         [
             A.Resize(height=IMAGE_HEIGHT, width=IMAGE_WIDTH),
-            A.Rotate(limit=35, p=1.0),
-            A.HorizontalFlip(p=0.5),
-            A.VerticalFlip(p=0.1),
+            #A.Rotate(limit=35, p=1.0),
+            A.HorizontalFlip(),
+            #A.VerticalFlip(p=0.1),
             A.Normalize(
-                mean=[0.0, 0.0, 0.0],
-                std=[1.0, 1.0, 1.0],
-                max_pixel_value=255.0,
+                mean=[0.485, 0.456, 0.406],
+                std=[0.229, 0.224, 0.225],
             ),
             ToTensorV2(),
         ],
@@ -88,10 +87,12 @@ def main():
     val_transforms = A.Compose(
         [
             A.Resize(height=IMAGE_HEIGHT, width=IMAGE_WIDTH),
+            #A.Rotate(limit=35, p=1.0),
+            A.HorizontalFlip(),
+            #A.VerticalFlip(p=0.1),
             A.Normalize(
-                mean=[0.0, 0.0, 0.0],
-                std=[1.0, 1.0, 1.0],
-                max_pixel_value=255.0,
+                mean=[0.485, 0.456, 0.406],
+                std=[0.229, 0.224, 0.225],
             ),
             ToTensorV2(),
         ],

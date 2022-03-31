@@ -1,6 +1,9 @@
 import torch
 import torchvision
-from dataset import CarvanaDataset
+from dataset import (
+    CarvanaDataset,
+    CityscapesDataset,
+)
 from torch.utils.data import DataLoader
 import numpy as np
 
@@ -24,7 +27,13 @@ def get_loaders(
     num_workers=4,
     pin_memory=True,
 ):
-    train_ds = CarvanaDataset(
+    # train_ds = CarvanaDataset(
+    #     image_dir=train_dir,
+    #     mask_dir=train_maskdir,
+    #     transform=train_transform,
+    # )
+
+    train_ds = CityscapesDataset(
         image_dir=train_dir,
         mask_dir=train_maskdir,
         transform=train_transform,
@@ -38,12 +47,17 @@ def get_loaders(
         shuffle=True,
     )
 
-    val_ds = CarvanaDataset(
+    # val_ds = CarvanaDataset(
+    #     image_dir=val_dir,
+    #     mask_dir=val_maskdir,
+    #     transform=val_transform,
+    # )
+
+    val_ds = CityscapesDataset(
         image_dir=val_dir,
         mask_dir=val_maskdir,
         transform=val_transform,
     )
-
     val_loader = DataLoader(
         val_ds,
         batch_size=batch_size,
