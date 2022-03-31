@@ -41,6 +41,14 @@ class CarvanaDataset(Dataset):
         return image, mask
 
 class CityscapesDataset(Cityscapes):
+    def __init__(self):
+        super(CityscapesDataset, self).__init__()
+        self.transform = A.Compose([
+            A.Resize(256, 512),
+            A.HorizontalFlip(),
+            A.Normalize(mean=(0.485, 0.456, 0.486), std=(0.229, 0.224, 0.225)),
+            ToTensorV2(),
+        ])
     def __getitem__(self, index: int) -> Tuple[Any, Any]:
         image = Image.open(self.images[index]).convert('RGB')
 

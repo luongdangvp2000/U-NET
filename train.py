@@ -25,23 +25,28 @@ from visualizer import (
     matplotlib_imshow,
 )
 
+from dataset import (
+    CityscapesDataset,
+)
+
 writer = SummaryWriter('runs/Carvana1')
 
 
 
-LEARNING_RATE = 1e-4
+LEARNING_RATE = 1e-3
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
-BATCH_SIZE = 16
+BATCH_SIZE = 32
 NUM_EPOCHS = 3
 NUM_WORKERS = 2
-IMAGE_HEIGHT = 160  # 1280 originally
-IMAGE_WIDTH = 240  # 1918 originally
-PIN_MEMORY = True
-LOAD_MODEL = False
-TRAIN_IMG_DIR = "/content/drive/MyDrive/U-NET/Dataset/train_images"
-TRAIN_MASK_DIR = "/content/drive/MyDrive/U-NET/Dataset/train_masks"
-VAL_IMG_DIR = "/content/drive/MyDrive/U-NET/Dataset/val_images"
-VAL_MASK_DIR = "/content/drive/MyDrive/U-NET/Dataset/val_masks"
+# IMAGE_HEIGHT = 160  # 1280 originally
+# IMAGE_WIDTH = 240  # 1918 originally
+# PIN_MEMORY = True
+# LOAD_MODEL = False
+# TRAIN_IMG_DIR = "/content/drive/MyDrive/U-NET/Dataset/train_images"
+# TRAIN_MASK_DIR = "/content/drive/MyDrive/U-NET/Dataset/train_masks"
+# VAL_IMG_DIR = "/content/drive/MyDrive/U-NET/Dataset/val_images"
+# VAL_MASK_DIR = "/content/drive/MyDrive/U-NET/Dataset/val_masks"
+
 
 def train_fn(loader, model, optimizer, loss_fn, scaler):
     loop = tqdm(loader)

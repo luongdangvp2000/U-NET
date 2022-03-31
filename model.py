@@ -1,6 +1,11 @@
 import torch
 import torch.nn as nn
 import torchvision.transforms.functional as TF
+from utils import (
+    encode_segmap,
+    decode_segmap,
+)
+
 
 class DoubleConv(nn.Module):
     def __init__(self, in_channels, out_channels):
@@ -65,6 +70,27 @@ class UNET(nn.Module):
             x = self.ups[idx+1](concat_skip)
 
         return self.final_conv(x)
+
+class MyModel(UNET):
+    def __init__(self):
+        super(MyModel, self).__init__()
+
+        #parameters
+        self.lr = 1e-3
+        self.batch_size = 32
+        self.numworker = 4
+        train_class = CityscapesDataset('./data/cityscapes', split='train', mode='fine',
+                     target_type='semantic',transforms=transform)
+
+        val_class = CityscapesDataset('./data/cityscapes', split='val', mode='fine',
+                     target_type='semantic',transforms=transform)
+
+    # def process(self, image, segment):
+    #     out = self(image)
+    #     segment = encode_segmap(segment)
+        
+    def forward(self, x):
+        return self.layer(x)
 
 def test():
     x = torch.randn((3, 1, 161, 161))
