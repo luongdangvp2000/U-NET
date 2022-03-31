@@ -115,19 +115,27 @@ def save_predictions_as_imgs(
 
     model.train()
 
-# remove unwanted classes and recitify the labels of wanted classes
-def encode_segmap(mask):
-    ignore_index=255
-    void_classes = [0,12,3,4,5,6,9,10,14,15,16,18,29,30,-1]
-    valid_classes = [ignore_index,7,8,11,12,13,17,19,20,21,22,23,24,25,26,27,28,31,32,33]
-
+# remove unwanted classes and recitify the labels of wanted classes (Cityscapes)
+def encode_segmap(mask, void_classes, valid_classes):
     for _voidc in void_classes:
         mask[mask == _voidc] = ignore_index
     for _validc in valid_classes:
         mask[mask == _validc] = class_map[_validc]
     return mask
 
-#convert gray to scale to color
+#convert gray to scale to color (Cityscapes)
 def decode_segmap(temp):
     temp = temp.numpy
-    
+    r = temp.copy()
+    g = temp.copy()
+    b = temp.copy()
+    for l in range(0, n_classes):
+        r[temp == l] = label_colours[l][0]
+        g[temp == l] = label_colours[l][1]
+        b[temp == l] = label_colours[l][2]
+
+    rgb = np.zeros((temp.shape[0], temp.shape[1], 3))
+    rgb[:, :, 0] = r / 255.0
+    rgb[:, :, 1] = g / 255.0
+    rgb[:, :, 2] = b / 255.0
+    return rgb
